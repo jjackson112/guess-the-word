@@ -16,7 +16,7 @@ const getWord = async function () {
     const words = await showResponse.text();
     const wordArray = words.split("\n");
     const randomIndex = Math.floor(Math.random() * wordArray.length);
-    word = wordArray[random.index].trim();
+    let word = wordArray[random.index].trim();
     placeholder(word);
 };
 
@@ -135,8 +135,31 @@ const count = function (guess) {
     if (remainingGuesses === 0) {
     messagesAppear.innerText = `Game over! `;
     } else if (remainingGuesses === 1) {
-    messagesAppear.innerText = `You have <span> ${remainingGuesses} </span> guess left.`;
+    remainingSpan.innerText = `You have <span> ${remainingGuesses} </span> guess left.`;
     } else {
-    messagesAppear.innerText = `You have <span> ${remainingGuesses} </span> guesses left.`;
+    remainingSpan.innerText = `You have <span> ${remainingGuesses} </span> guesses left.`;
     }
 };
+
+// Play it again
+
+const startOver = function () {
+    guessButton.classList.add("hide");
+    remainingGuesses.classList.add("hide");
+    guessedLetters.classList.add("hide");
+    playagain.classList.remove("hide");
+};
+
+hiddenButton.addEventListener("click", function () {
+    messagesAppear.classList.remove(".win");
+    guessedLetters = [];
+    remainingGuesses = 8;
+    remainingSpan.innerText = `${remainingGuesses} guesses`;
+    messagesAppear.innerText = "";
+    guessButton.classList.remove("hide");
+    remainingGuesses.classList.remove("hide");
+    guessedLetters.classList.remove("hide");
+    playagain.classList.add("hide");
+});
+
+getWord();
