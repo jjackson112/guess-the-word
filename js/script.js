@@ -2,13 +2,25 @@ const guessList = document.querySelector(".guessed-letters");
 const guessButton = document.querySelector(".guess");
 const textInput = document.querySelector(".letter");
 const wordInProgress = document.querySelector(".word-in-progress");
-const remainingGuesses = document.querySelector(".remaining");
+const leftoverGuesses = document.querySelector(".remaining");
 const displayRemainingGuesses = document.querySelector("span");
 const messagesAppear = document.querySelector(".message");
 const hiddenButton = document.querySelector(".play-again");
 
-const word = "magnolia"; 
+let word = "magnolia"; 
 const guessedLetters = [];
+const remainingGuesses = 8;
+
+const getWord = async function () {
+    const showResponse = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    const words = await showResponse.text();
+    const wordArray = words.split("\n");
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[random.index].trim();
+    placeholder(word);
+};
+
+getWord();
 
 // Show dot as placeholders
 
@@ -30,13 +42,13 @@ guessButton.addEventListener("click", function (e) {
     messagesAppear.innerText = "";
 
     const guess = letterInput.value;
+    letterInput.value = "";
   
     const goodChoice = acceptInput(guess);
 
     if (goodChoice) {
         makeGuess(guess);
     }
-    letterInput.value = "";
 });
 
 // validate the player's input
@@ -105,6 +117,26 @@ const updateWordinProgress = function (guessedLetters) {
 const winner = function () {
     if (word = wordInProgress.innerText) {
         messagesAppear.classList.add(".win");
-        messagesAppear.innerHTML = <p class="highlight">You guessed correct the word! Congrats!</p>
+        messagesAppear.innerHTML = "You guessed correct the word! Congrats!";
+    }
+};
+
+// Count remaining guesses
+
+const count = function (guess) {
+   const grab = word.toUppercase();
+    if (word.includes(guess)) {
+    messagesAppear.innerText = `Sorry, the word doesn't have ${guess}. Try again.`;
+    remainingGuesses = -1;
+    } else {
+    messagesAppear.innerText = `Great job! The word has ${guess}.`;
+    }
+
+    if (remainingGuesses === 0) {
+    messagesAppear.innerText = `Game over! `;
+    } else if (remainingGuesses === 1) {
+    messagesAppear.innerText = `You have <span> ${remainingGuesses} </span> guess left.`;
+    } else {
+    messagesAppear.innerText = `You have <span> ${remainingGuesses} </span> guesses left.`;
     }
 };
