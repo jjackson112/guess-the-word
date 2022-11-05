@@ -27,3 +27,17 @@ const placeholder = (word) => {
 // Call function and pass it to theword variable as an argument
 placeholder(word);
 
+// Because you’re working with a form, you want to prevent the default behavior of clicking a button, the form submitting, and then reloading the page
+
+guessButton.addEventListener("click", function (e) {
+    e.preventDefault();
+
+// Create and name a variable to capture the value of the input. Log out the value of the variable capturing the input. You should see the letter you enter into the input field in the console when the Guess button is clicked. 
+
+const guess = letterInput.value;
+console.log(guess);
+
+// empty input field
+letterInput.value = "";
+
+});
