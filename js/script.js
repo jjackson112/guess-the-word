@@ -8,8 +8,21 @@ const message = document.querySelector(".message");
 const hiddenButton = document.querySelector(".play-again");
 
 let word = "magnolia";
-const guessedLetters =[];
+let guessedLetters =[];
 let remainingGuesses = 8;
+
+const getWord = async function () {
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    const words = await response.text();
+    const wordArray = words.split("\n");
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[randomIndex].trim();
+    placeholder(word);
+  };
+
+// Start game 
+
+getWord();
 
 // Show dots as placeholders, placeholderLetters is the empty array, for adding to and the array is empty and will collect the letters then for each letter inside of the word that we passed to the function, we add a "●" to the array
 
@@ -144,7 +157,7 @@ const updateGuessesRemaining = function (guess) {
      }
  
      if (remainingGuesses === 0) {
-     message.innerText = `Game over! The word was <span class="highlight">${word}</span>.`;
+     message.innerText = `Game over! The word was ${word}.`;
      startOver();
      } else if (remainingGuesses === 1) {
         showRemainingGuesses.innerText = `${remainingGuesses} guess`;
@@ -161,6 +174,7 @@ const startOver = function () {
     guessList.classList.add("hide");
     hiddenButton.classList.remove("hide");
 };
+
 // reset original values
 hiddenButton.addEventListener("click", function () {
     message.classList.remove("win");
