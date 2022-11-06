@@ -7,9 +7,9 @@ const showRemainingGuesses = document.querySelector(".remaining span");
 const message = document.querySelector(".message");
 const hiddenButton = document.querySelector(".play-again");
 
-const word = "magnolia";
+let word = "magnolia";
 const guessedLetters =[];
-const remainingGuesses = 8;
+let remainingGuesses = 8;
 
 // Show dots as placeholders, placeholderLetters is the empty array, for adding to and the array is empty and will collect the letters then for each letter inside of the word that we passed to the function, we add a "●" to the array
 
@@ -147,9 +147,9 @@ const updateGuessesRemaining = function (guess) {
      message.innerText = `Game over! The word was <span class="highlight">${word}</span>.`;
      startOver();
      } else if (remainingGuesses === 1) {
-     showRemainingGuesses.innerText = `You have ${remainingGuesses}  guess left.`;
+        showRemainingGuesses.innerText = `${remainingGuesses} guess`;
      } else {
-     showRemainingGuesses.innerText = `You have ${remainingGuesses} guesses left.`;
+        showRemainingGuesses.innerText = `${remainingGuesses} guesses`;
      }
  };
 
