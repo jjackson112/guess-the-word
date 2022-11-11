@@ -136,15 +136,6 @@ const updateWordInProgress = function (guessedLetters) {
     winner();
 };
 
-// Check if player won, verifying if their word in progress matches the word they should guess
-
-const winner = function () {
-    if (word.toUpperCase() === wordInProgress.innerText) {
-    message.classList.add("win");
-    message.innerHTML = `<p class="highlight"> You guessed correct the word! Congrats!</p>`;
-    }
-};
-
 // Count remaining guesses
 
 const updateGuessesRemaining = function (guess) {
@@ -166,6 +157,17 @@ const updateGuessesRemaining = function (guess) {
      }
  };
 
+ // Check if player won, verifying if their word in progress matches the word they should guess
+
+const winner = function () {
+    if (word.toUpperCase() === wordInProgress.innerText) {
+    message.classList.add("win");
+    message.innerHTML = `<p class="highlight"> You guessed correct the word! Congrats!</p>`;
+    
+    startOver();
+    }
+};
+
  // Play it again
 
 const startOver = function () {
@@ -178,11 +180,11 @@ const startOver = function () {
 // reset original values
 hiddenButton.addEventListener("click", function () {
     message.classList.remove("win");
+    message.innerText = "";
     guessedLetters = [];
     remainingGuesses = 8;
     showRemainingGuesses.innerText = `${remainingGuesses} guesses`;
     guessList.innerHTML = "";
-    message.innerText = "";
 
     // Get a new word
     getWord();
@@ -192,5 +194,4 @@ hiddenButton.addEventListener("click", function () {
     hiddenButton.classList.add("hide");
     leftGuesses.classList.remove("hide");
     guessList.classList.remove("hide");
-   
 });
